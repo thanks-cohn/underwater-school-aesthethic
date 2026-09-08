@@ -78,6 +78,22 @@ export const rooms = [
       'Transitions are broad and deliberate, suited to launches, manifestos, exhibitions or any page where a single statement should own the room.'
     ],
     detail: 'A presentation layout with a large focal plane, program notes and cinematic spacing.'
+  },
+  {
+    slug: 'pool-wing',
+    number: '06',
+    kicker: 'Aquatics · Flood Line',
+    title: 'The Pool Wing',
+    short: 'Here the boundary between school and sea finally disappears.',
+    image: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=1800&q=82',
+    background: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=2200&q=82',
+    direction: 'right',
+    layout: 'hall',
+    body: [
+      'The Pool Wing is the most submerged expression of the system. The glass overlay becomes stronger, highlights drift farther, and the architecture recedes behind water-like distortion.',
+      'It demonstrates how the same interface can accept a photograph, GIF, MP4 or WebM background while the glass, tint and caustic layers remain independent.'
+    ],
+    detail: 'A media-first environment for atmospheric backgrounds, moving footage and deeper glass effects.'
   }
 ];
 
