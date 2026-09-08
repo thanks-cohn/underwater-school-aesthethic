@@ -1,0 +1,25 @@
+---
+import SunkenLayout from '../layouts/SunkenLayout.astro';
+import { imageCredits } from '../data/rooms.js';
+---
+<SunkenLayout
+  title="Image Credits · Sunken Academy"
+  description="Photography credits for the Sunken Academy interface study."
+  background="https://images.unsplash.com/photo-1506233166564-37ae224e467f?auto=format&fit=crop&w=2200&q=78"
+>
+  <div class="shell credits">
+    <p class="eyebrow">Archive Note · Photography</p>
+    <h1>Image<br />Credits</h1>
+    <p class="credits-intro">The visual study uses free photographs from Unsplash and transforms them only through CSS tinting, glass, caustic-light and atmospheric layers. The images remain external so the interface can be swapped to your own image, GIF, MP4 or WebM later.</p>
+
+    <div class="credit-list">
+      {imageCredits.map(([artist, title, url], index) => (
+        <div class="credit-row">
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <strong>{title} · {artist}</strong>
+          <a href={url} target="_blank" rel="noreferrer">Unsplash ↗</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</SunkenLayout>
