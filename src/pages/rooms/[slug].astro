@@ -1,0 +1,60 @@
+---
+import SunkenLayout from '../../layouts/SunkenLayout.astro';
+import { rooms } from '../../data/rooms.js';
+
+export function getStaticPaths() {
+  return rooms.map((room, index) => ({
+    params: { slug: room.slug },
+    props: { room, next: rooms[(index + 1) % rooms.length] }
+  }));
+}
+
+const { room, next } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<SunkenLayout
+  title={`${room.title} · Sunken Academy`}
+  description={room.short}
+  background={room.background}
+>
+  <div class:list={['shell', 'detail', `detail--${room.layout}`]}>
+    <header class="detail-header">
+      <div>
+        <div class="detail-number">ROOM {room.number}</div>
+        <h1>{room.title}</h1>
+      </div>
+      <div>
+        <p class="eyebrow">{room.kicker}</p>
+        <p class="detail-lede">{room.short}</p>
+      </div>
+    </header>
+
+    <div class="image-card detail-hero">
+      <img src={room.image} alt={room.title} />
+    </div>
+
+    <section class="detail-grid">
+      <aside class="detail-aside">
+        Preserved Wing<br />
+        Static Record<br />
+        Directional Entry<br />
+        Glass Layer Active
+      </aside>
+      <div class="detail-copy">
+        {room.body.map((paragraph) => <p>{paragraph}</p>)}
+        <div class="detail-note">{room.detail}</div>
+      </div>
+    </section>
+
+    <a class="next-room" href={`${base}rooms/${next.slug}/`} data-dir={next.direction}>
+      <span>Continue through the academy</span>
+      <strong>{next.title} →</strong>
+    </a>
+
+    <footer class="site-footer">
+      <span>{room.kicker}</span>
+      <span>Home remains available at the upper left</span>
+      <a href={`${base}credits/`} data-dir="left">Image credits</a>
+    </footer>
+  </div>
+</SunkenLayout>
