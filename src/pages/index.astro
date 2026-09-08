@@ -1,0 +1,96 @@
+---
+import SunkenLayout from '../layouts/SunkenLayout.astro';
+import { rooms } from '../data/rooms.js';
+
+const base = import.meta.env.BASE_URL;
+const hero = rooms[0];
+const middle = rooms[1];
+const pillar = rooms[2];
+const lower = rooms.slice(3);
+const arrow = { up: '↑', down: '↓', left: '←', right: '→' };
+---
+<SunkenLayout
+  title="Sunken Academy"
+  description="An abandoned underwater school interface study: brass, glass, old records, directional movement and submerged institutional memory."
+  background="https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=2400&q=80"
+>
+  <div class="shell">
+    <section class="masthead" aria-labelledby="main-title">
+      <div>
+        <p class="eyebrow">Abandoned School · Beneath the Waterline</p>
+        <h1 id="main-title">Sunken<br />Academy</h1>
+        <p class="masthead-copy">A reusable interface language built from an old school that has been left beneath the sea: brass directories, green glass, silent hallways, card files and slow mechanical movement. The water is an overlay, so any image, GIF or video can become part of the environment.</p>
+        <div class="deco-rule" aria-hidden="true"></div>
+      </div>
+
+      <a class="portal" href={`${base}rooms/${hero.slug}/`} data-dir={hero.direction}>
+        <div class="image-card hero-image">
+          <img src={hero.image} alt="An empty school hallway" loading="eager" />
+          <div class="card-label">
+            <div><strong>{hero.title}</strong><small>{hero.kicker}</small></div>
+            <span class="direction-mark" aria-hidden="true">{arrow[hero.direction]}</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <section class="middle-zone" aria-label="Instruction and records wing">
+      <div class="middle-main">
+        <a class="portal" href={`${base}rooms/${middle.slug}/`} data-dir={middle.direction}>
+          <div class="image-card">
+            <img src={middle.image} alt="An empty classroom with desks" loading="lazy" />
+            <div class="card-label">
+              <div><strong>{middle.title}</strong><small>{middle.kicker}</small></div>
+              <span class="direction-mark" aria-hidden="true">{arrow[middle.direction]}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <aside class="pillar" aria-label="Administrative side pillar">
+        <div class="pillar-title">Administration · Side Index</div>
+        <a class="portal" href={`${base}rooms/${pillar.slug}/`} data-dir={pillar.direction}>
+          <div class="image-card">
+            <img src={pillar.image} alt="An abandoned school records room" loading="lazy" />
+            <div class="card-label">
+              <div><strong>{pillar.title}</strong><small>{pillar.kicker}</small></div>
+              <span class="direction-mark" aria-hidden="true">{arrow[pillar.direction]}</span>
+            </div>
+          </div>
+        </a>
+      </aside>
+    </section>
+
+    <section class="bottom-zone" aria-labelledby="lower-title">
+      <div class="bottom-heading">
+        <h2 id="lower-title">Below<br />the Main Floor</h2>
+        <p>The lower sections are intentionally long and slow. Each image behaves like a doorway: choose one and the current page moves away in that direction before the next layout replaces it. No hard flash, no abrupt white frame, and Home remains fixed above the transition.</p>
+      </div>
+
+      {lower.map((room, index) => (
+        <article class:list={['long-card', index % 2 ? 'reverse' : '']}>
+          <a class="portal" href={`${base}rooms/${room.slug}/`} data-dir={room.direction}>
+            <div class="image-card">
+              <img src={room.image} alt={room.title} loading="lazy" />
+              <div class="card-label">
+                <div><strong>{room.title}</strong><small>{room.kicker}</small></div>
+                <span class="direction-mark" aria-hidden="true">{arrow[room.direction]}</span>
+              </div>
+            </div>
+          </a>
+          <div class="long-copy">
+            <span class="number">ROOM {room.number}</span>
+            <h3>{room.title}</h3>
+            <p>{room.short}</p>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <footer class="site-footer">
+      <span>Sunken Academy · Static Astro study</span>
+      <span>Designed to build on Cloudflare Pages and GitHub Pages</span>
+      <a href={`${base}credits/`} data-dir="left">Image credits</a>
+    </footer>
+  </div>
+</SunkenLayout>
