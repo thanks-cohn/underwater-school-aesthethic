@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+
+const {
+  title = 'Sunken Academy',
+  description = 'An abandoned underwater school interface study.',
+  background = 'https://images.unsplash.com/photo-1742727763219-f74fb84e4bc8?auto=format&fit=crop&w=2200&q=80',
+  backgroundType = 'image'
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#031215" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <script is:inline>
+      try {
+        const direction = sessionStorage.getItem('sunken-enter');
+        if (direction) document.documentElement.dataset.enter = direction;
+      } catch (_) {}
+    </script>
+  </head>
+  <body>
+    {backgroundType === 'video' ? (
+      <video class="scene-video" autoplay muted loop playsinline poster={background}>
+        <source src={background} />
+      </video>
+    ) : (
+      <div class="scene-backdrop" style={`background-image:url('${background}')`}></div>
+    )}
+    <div class="scene-tint" aria-hidden="true"></div>
+
+    <a class="home-link" href={base} data-dir="down" aria-label="Return home">
+      <span class="home-dot"></span>
+      Home
+    </a>
+    <div class="site-mark">Sunken Academy · Interface Study</div>
+
+    <main class="page-stage">
+      <slot />
+    </main>
+
+    <script is:inline>
+      const root = document.documentElement;
+      const stage = document.querySelector('.page-stage');
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          root.dataset.ready = 'true';
+          try { sessionStorage.removeItem('sunken-enter'); } catch (_) {}
+        });
+      });
+
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[data-dir]');
+        if (!link || !stage) return;
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (link.target === '_blank' || link.hasAttribute('download')) return;
+
+        const url = new URL(link.href, window.location.href);
+        if (url.origin !== window.location.origin) return;
+
+        event.preventDefault();
+        const dir = link.dataset.dir || 'left';
+        try { sessionStorage.setItem('sunken-enter', dir); } catch (_) {}
+        stage.classList.add(`leave-${dir}`);
+        window.setTimeout(() => { window.location.href = link.href; }, 540);
+      });
+    </script>
+  </body>
+</html>
