@@ -6,7 +6,8 @@ export const rooms = [
     title: 'The Grand Hall',
     short: 'The school remembers every footstep, even after the sea took the bells.',
     image: 'https://images.unsplash.com/photo-1556168308-629ef2891e9d?auto=format&fit=crop&w=1800&q=82',
-    background: 'https://images.unsplash.com/photo-1742727763219-f74fb84e4bc8?auto=format&fit=crop&w=2200&q=82',
+    background: 'backgrounds/grand-hall.webp',
+    backgroundFallback: 'https://images.unsplash.com/photo-1742727763219-f74fb84e4bc8?auto=format&fit=crop&w=2200&q=82',
     direction: 'up',
     layout: 'hall',
     body: [
@@ -22,7 +23,8 @@ export const rooms = [
     title: 'The Classroom',
     short: 'Desks remain aligned for a lesson that never resumed.',
     image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=82',
-    background: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=2200&q=78',
+    background: 'backgrounds/classroom.webp',
+    backgroundFallback: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=2200&q=78',
     direction: 'left',
     layout: 'classroom',
     body: [
@@ -38,7 +40,8 @@ export const rooms = [
     title: 'The Records Office',
     short: 'Card drawers, stamped dates and brass labels survive behind thick glass.',
     image: 'https://images.unsplash.com/photo-1506233166564-37ae224e467f?auto=format&fit=crop&w=1800&q=82',
-    background: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=2200&q=78',
+    background: 'backgrounds/records-office.webp',
+    backgroundFallback: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=2200&q=78',
     direction: 'right',
     layout: 'records',
     body: [
@@ -54,7 +57,8 @@ export const rooms = [
     title: 'The Library Below',
     short: 'The stacks disappeared into green darkness long before the catalogue did.',
     image: 'https://images.unsplash.com/photo-1530608031805-8e170c1b793a?auto=format&fit=crop&w=1800&q=82',
-    background: 'https://images.unsplash.com/photo-1530608031805-8e170c1b793a?auto=format&fit=crop&w=2200&q=76',
+    background: 'backgrounds/library.webp',
+    backgroundFallback: 'https://images.unsplash.com/photo-1530608031805-8e170c1b793a?auto=format&fit=crop&w=2200&q=76',
     direction: 'down',
     layout: 'library',
     body: [
@@ -70,7 +74,8 @@ export const rooms = [
     title: 'The Last Assembly',
     short: 'A stage waiting beneath the pressure, still facing rows of empty seats.',
     image: 'https://images.unsplash.com/photo-1782571494712-b1114adca9f1?auto=format&fit=crop&w=1800&q=82',
-    background: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=2200&q=78',
+    background: 'backgrounds/assembly-hall.webp',
+    backgroundFallback: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=2200&q=78',
     direction: 'up',
     layout: 'assembly',
     body: [
@@ -86,7 +91,8 @@ export const rooms = [
     title: 'The Pool Wing',
     short: 'Here the boundary between school and sea finally disappears.',
     image: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=1800&q=82',
-    background: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=2200&q=82',
+    background: 'backgrounds/pool-wing.webp',
+    backgroundFallback: 'https://images.unsplash.com/photo-1675223894754-7b0af6c38a90?auto=format&fit=crop&w=2200&q=82',
     direction: 'right',
     layout: 'hall',
     body: [
