@@ -1,0 +1,33 @@
+SUNKEN ACADEMY — CURRENT BACKGROUND MAP
+
+Put replacement background files in this directory.
+Use the basename shown below with any supported extension.
+
+CURRENT PAGES
+/                         -> default
+/credits/                 -> credits
+/rooms/grand-hall/        -> grand-hall
+/rooms/classroom/         -> classroom
+/rooms/records-office/    -> records-office
+/rooms/library/           -> library
+/rooms/assembly-hall/     -> assembly-hall
+/rooms/pool-wing/         -> pool-wing
+
+SUPPORTED IMAGE TYPES
+.webp .avif .png .jpg .jpeg .gif .svg .bmp
+
+SUPPORTED VIDEO TYPES
+.webm .mp4 .ogv
+
+EXAMPLES
+classroom.webp
+classroom.png
+classroom.jpg
+classroom.gif
+classroom.webm
+
+The build automatically finds the first existing supported file for each basename.
+If no local file exists, that page keeps using its current Unsplash fallback.
+
+Extension priority:
+webp -> avif -> png -> jpg -> jpeg -> gif -> svg -> bmp -> webm -> mp4 -> ogv
