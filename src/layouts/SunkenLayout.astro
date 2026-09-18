@@ -16,13 +16,16 @@ const {
   backgroundType = 'auto'
 } = Astro.props;
 
+const normalizeLocation = (value) => typeof value === 'string' ? value.trim() : '';
 const isExternal = (value) => /^(?:https?:)?\/\//.test(value) || value.startsWith('data:') || value.startsWith('blob:');
 const withBase = (value) => isExternal(value) ? value : `${base}${value.replace(/^\/+/, '')}`;
 
 const resolveLocalBackground = (value) => {
-  if (!value || isExternal(value)) return value ? { url: value, type: 'image' } : null;
+  const location = normalizeLocation(value);
+  if (!location) return null;
+  if (isExternal(location)) return { url: location, type: 'image' };
 
-  const clean = value.replace(/^\/+/, '');
+  const clean = location.replace(/^\/+/, '');
   const suppliedExtension = extname(clean).toLowerCase();
   const candidates = suppliedExtension ? [clean] : supportedExtensions.map((extension) => `${clean}${extension}`);
 
@@ -40,7 +43,8 @@ const resolveLocalBackground = (value) => {
 };
 
 const localBackground = resolveLocalBackground(background);
-const fallbackUrl = backgroundFallback ? withBase(backgroundFallback) : '';
+const fallbackLocation = normalizeLocation(backgroundFallback);
+const fallbackUrl = fallbackLocation ? withBase(fallbackLocation) : '';
 const resolvedBackground = localBackground?.url || fallbackUrl;
 const resolvedType = backgroundType === 'auto' ? (localBackground?.type || 'image') : backgroundType;
 ---
