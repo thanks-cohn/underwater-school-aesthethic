@@ -1,14 +1,52 @@
 ---
 import '../styles/global.css';
+import { existsSync } from 'node:fs';
+import { extname, join } from 'node:path';
+
+const base = import.meta.env.BASE_URL;
+const imageExtensions = ['.webp', '.avif', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.bmp'];
+const videoExtensions = ['.webm', '.mp4', '.ogv'];
+const supportedExtensions = [...imageExtensions, ...videoExtensions];
 
 const {
   title = 'Sunken Academy',
   description = 'An abandoned underwater school interface study.',
-  background = 'https://images.unsplash.com/photo-1742727763219-f74fb84e4bc8?auto=format&fit=crop&w=2200&q=80',
-  backgroundType = 'image'
+  background = 'backgrounds/default',
+  backgroundFallback = 'https://images.unsplash.com/photo-1742727763219-f74fb84e4bc8?auto=format&fit=crop&w=2200&q=80',
+  backgroundType = 'auto'
 } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
+const normalizeLocation = (value) => typeof value === 'string' ? value.trim() : '';
+const isExternal = (value) => /^(?:https?:)?\/\//.test(value) || value.startsWith('data:') || value.startsWith('blob:');
+const withBase = (value) => isExternal(value) ? value : `${base}${value.replace(/^\/+/, '')}`;
+
+const resolveLocalBackground = (value) => {
+  const location = normalizeLocation(value);
+  if (!location) return null;
+  if (isExternal(location)) return { url: location, type: 'image' };
+
+  const clean = location.replace(/^\/+/, '');
+  const suppliedExtension = extname(clean).toLowerCase();
+  const candidates = suppliedExtension ? [clean] : supportedExtensions.map((extension) => `${clean}${extension}`);
+
+  for (const candidate of candidates) {
+    if (existsSync(join(process.cwd(), 'public', candidate))) {
+      const extension = extname(candidate).toLowerCase();
+      return {
+        url: withBase(candidate),
+        type: videoExtensions.includes(extension) ? 'video' : 'image'
+      };
+    }
+  }
+
+  return null;
+};
+
+const localBackground = resolveLocalBackground(background);
+const fallbackLocation = normalizeLocation(backgroundFallback);
+const fallbackUrl = fallbackLocation ? withBase(fallbackLocation) : '';
+const resolvedBackground = localBackground?.url || fallbackUrl;
+const resolvedType = backgroundType === 'auto' ? (localBackground?.type || 'image') : backgroundType;
 ---
 <!doctype html>
 <html lang="en">
@@ -26,12 +64,12 @@ const base = import.meta.env.BASE_URL;
     </script>
   </head>
   <body>
-    {backgroundType === 'video' ? (
-      <video class="scene-video" autoplay muted loop playsinline poster={background}>
-        <source src={background} />
+    {resolvedType === 'video' ? (
+      <video class="scene-video" autoplay muted loop playsinline poster={fallbackUrl || undefined}>
+        <source src={resolvedBackground} />
       </video>
     ) : (
-      <div class="scene-backdrop" style={`background-image:url('${background}')`}></div>
+      <div class="scene-backdrop" style={`background-image:url('${resolvedBackground}')`}></div>
     )}
     <div class="scene-tint" aria-hidden="true"></div>
 

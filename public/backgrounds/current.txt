@@ -1,0 +1,45 @@
+SUNKEN ACADEMY — CURRENT BACKGROUND MAP
+
+BACKGROUND DIRECTORY LAYOUT
+public/backgrounds/
+├── current.txt
+├── README.md
+├── default.[ext]
+├── credits.[ext]
+└── rooms/
+    ├── grand-hall.[ext]
+    ├── classroom.[ext]
+    ├── records-office.[ext]
+    ├── library.[ext]
+    ├── assembly-hall.[ext]
+    └── pool-wing.[ext]
+
+CURRENT PAGES
+/                         -> backgrounds/default
+/credits/                 -> backgrounds/credits
+/rooms/grand-hall/        -> backgrounds/rooms/grand-hall
+/rooms/classroom/         -> backgrounds/rooms/classroom
+/rooms/records-office/    -> backgrounds/rooms/records-office
+/rooms/library/           -> backgrounds/rooms/library
+/rooms/assembly-hall/     -> backgrounds/rooms/assembly-hall
+/rooms/pool-wing/         -> backgrounds/rooms/pool-wing
+
+SUPPORTED IMAGE TYPES
+.webp .avif .png .jpg .jpeg .gif .svg .bmp
+
+SUPPORTED VIDEO TYPES
+.webm .mp4 .ogv
+
+EXAMPLES
+public/backgrounds/rooms/classroom.webp
+public/backgrounds/rooms/classroom.png
+public/backgrounds/rooms/classroom.jpg
+public/backgrounds/rooms/classroom.gif
+public/backgrounds/rooms/classroom.webm
+
+FALLBACK BEHAVIOR
+If the configured local location is empty, missing, whitespace-only, or no supported file exists there,
+the page automatically uses its existing backgroundFallback URL instead.
+
+Extension priority:
+webp -> avif -> png -> jpg -> jpeg -> gif -> svg -> bmp -> webm -> mp4 -> ogv
