@@ -16,6 +16,7 @@ const base = import.meta.env.BASE_URL;
   title={`${room.title} · Sunken Academy`}
   description={room.short}
   background={room.background}
+  backgroundFallback={room.backgroundFallback}
 >
   <div class:list={['shell', 'detail', `detail--${room.layout}`]}>
     <header class="detail-header">
